@@ -21,8 +21,8 @@ class CoinAuto
         switch ($coin) {
             case 'monero':
                 return new CoinMonero();
-            case 'zcoin':
-                return new CoinZcoin();
+            case 'particl':
+                return new CoinParticl();
             default:
                 throw new \Exception('Unsupported COIN ' . $coin);
         }

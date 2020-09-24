@@ -7,13 +7,13 @@ use App\Project;
 use Illuminate\Console\Command;
 
 use Monero\WalletCommon;
-use Monero\WalletZcoin;
+use Monero\WalletParticl;
 
-class CoinZcoin implements Coin
+class CoinParticl implements Coin
 {
     public function newWallet() : WalletCommon
     {
-        return new WalletZcoin();
+        return new WalletParticl();
     }
 
     public function onNotifyGetTransactions(Command $command, WalletCommon $wallet)

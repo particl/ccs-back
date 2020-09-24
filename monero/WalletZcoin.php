@@ -4,7 +4,7 @@ namespace Monero;
 
 use Carbon\Carbon;
 
-class WalletZcoin implements WalletCommon
+class WalletParticl implements WalletCommon
 {
     private $rpc;
 
@@ -74,7 +74,7 @@ class WalletZcoin implements WalletCommon
 
     public function createQrCodeString($address, $amount = null) : string
     {
-        return 'zcoin:' . $address . ($amount ? '?amount=' . $amount : '');
+        return 'particl:' . $address . ($amount ? '?amount=' . $amount : '');
     }
 
     private function blockHeightByHash($block_hash) : int
