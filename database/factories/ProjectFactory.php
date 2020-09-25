@@ -4,6 +4,7 @@ use Faker\Generator as Faker;
 
 $factory->define(\App\Project::class, function (Faker $faker) {
     $state = $faker->randomElement(['FUNDING-REQUIRED', 'WORK-IN-PROGRESS', 'COMPLETED']);
+    $vote = $faker->randomElement(['NETWORK-VOTE-REQUIRED', 'NETWORK-VOTE-IN-PROGRESS','COMPLETED']);
     return [
         'title' => $faker->sentence(),
         'subaddr_index' => $faker->randomNumber(),
@@ -13,6 +14,7 @@ $factory->define(\App\Project::class, function (Faker $faker) {
         'target_amount' => $faker->randomFloat(2, 0, 2000),
         'raised_amount' => $faker->randomFloat(2, 0, 2000),
         'state' => $state,
+        'vote' => $vote,
         'author' => $faker->userName,
         'gitlab_url' => $faker->url,
         'created_at' => $faker->dateTimeThisYear,

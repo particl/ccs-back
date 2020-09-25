@@ -64,6 +64,10 @@ class ProcessProposals extends Command
                                     'wip'   => 'WORK-IN-PROGRESS',
                                     'cp'    => 'COMPLETED'];
 
+    private const networkVoteToState = ['nvr'    => 'NETWORK-VOTE-REQUIRED',
+                                        'nvip'   => 'NETWORK-VOTE-IN-PROGRESS',
+                                        'cp'    => 'COMPLETED'];
+
     private const mandatoryFields = [   'amount',
                                         'author',
                                         'date',
@@ -126,6 +130,10 @@ class ProcessProposals extends Command
 
                 if (isset($detail['values']['gitlab_url'])) {
                     $project->gitlab_url = htmlspecialchars($detail['values']['gitlab_url'], ENT_QUOTES);
+                }
+
+                if (isset($detail['values']['network_vote'])) {
+                    $project->$vote = $this::networkVoteToState[$detail['values']['network_vote']];
                 }
 
                 $project->author = $author;

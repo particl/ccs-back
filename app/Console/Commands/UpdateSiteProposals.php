@@ -125,6 +125,7 @@ class UpdateSiteProposals extends Command
         $prop->{'gitlab-url'} = $proposal->gitlab_url;
         $prop->{'local-url'} = '/proposals/'. pathinfo($proposal->filename, PATHINFO_FILENAME) . '.html';
         $prop->contributions = $proposal->contributions;
+        $prop->vote = $proposal->vote;
         $prop->milestones = $proposal->milestones;
         $prop->{'milestones-completed'} = $proposal->milestones_completed;
         $milestones_percentage = min(100, (int)(($proposal->milestones_completed * 100) / $proposal->milestones));
