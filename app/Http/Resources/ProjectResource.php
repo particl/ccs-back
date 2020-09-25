@@ -22,6 +22,7 @@ class ProjectResource extends JsonResource
             'percentage_funded' => $this->percentage_funded,
             'raised_amount' => $this->raised_amount,
             'state' => $this->state,
+            'vote' => $this->vote,
             'target_amount' => $this->target_amount,
             'title' => $this->title,
         ];
