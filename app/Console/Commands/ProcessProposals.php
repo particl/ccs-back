@@ -133,7 +133,7 @@ class ProcessProposals extends Command
                 }
 
                 if (isset($detail['values']['network_vote'])) {
-                    $project->$vote = $this::networkVoteToState[$detail['values']['network_vote']];
+                    $project->vote = $this::networkVoteToState[$detail['values']['network_vote']];
                 }
 
                 $project->author = $author;
