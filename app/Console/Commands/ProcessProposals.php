@@ -64,14 +64,16 @@ class ProcessProposals extends Command
                                     'wip'   => 'WORK-IN-PROGRESS',
                                     'cp'    => 'COMPLETED'];
 
-    private const networkVoteToState = ['nvr'    => 'NETWORK-VOTE-REQUIRED',
-                                        'nvip'   => 'NETWORK-VOTE-IN-PROGRESS',
-                                        'cp'    => 'COMPLETED'];
+    private const networkVoteToState = ['no'   => 'NO-NETWORK-VOTE-REQUIRED',
+                                        'yes'  => 'NETWORK-VOTE-REQUIRED',
+                                        'wip' => 'NETWORK-VOTE-IN-PROGRESS',
+                                        'cp'   => 'COMPLETED'];
 
     private const mandatoryFields = [   'amount',
                                         'author',
                                         'date',
                                         'layout',
+                                        'network_vote',
                                         'milestones',
                                         'title'];
 
