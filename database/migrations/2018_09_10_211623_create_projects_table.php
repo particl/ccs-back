@@ -15,6 +15,7 @@ class CreateProjectsTable extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('vote_id')->unsigned();
             $table->foreign('vote_id')->references('id')->on('votes')->nullable();
             $table->string('author');
             $table->string('title');
