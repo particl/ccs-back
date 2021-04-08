@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Project;
+use App\Vote;
 use App\Repository\State;
 use App\Repository\Connection;
 use Illuminate\Console\Command;
