@@ -128,7 +128,7 @@ class ProcessProposals extends Command
                     $project->created_at = $date;
                     $project->filename = $filename;
 
-                    $project->$vote_id = $this->createVote();
+                    $project->vote_id = $this->createVote();
 
                 } else {
                     $this->info("Updating project $filename");
@@ -159,8 +159,8 @@ class ProcessProposals extends Command
         $this->info("Create a new vote!");
         $vote = new Vote;
         // TODO: calculate the starting block and the end - make sure they don't overlap
-        $vote->block_height_start = 2000;
-        $vote->block_height_end = 5000;
+        $vote->block_height_start = rand(0, 800000);
+        $vote->block_height_end = rand(0, 800000);
         $vote->save();
         return $vote->id;
     }
