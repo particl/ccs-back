@@ -17,10 +17,8 @@ class CoinAuto
 {
     public static function newCoin() : Coin
     {
-        $coin = env('COIN', 'monero');
+        $coin = env('COIN', 'particl');
         switch ($coin) {
-            case 'monero':
-                return new CoinMonero();
             case 'particl':
                 return new CoinParticl();
             default:

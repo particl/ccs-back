@@ -67,6 +67,37 @@ class WalletParticl implements WalletCommon
         });
     }
 
+    public function checkIncomingVotes($vote_id, $block_start, $block_end)
+    {
+        $vote = $this->rpc->request('tallyvotes', [$vote_id, $block_start, $block_end]);
+
+        // Split string "y, x%" and return y
+        function extract_votes($votes_str = null) {
+            // Check if the value is set and not null
+            if(isset($votes_str)) {
+                $votes_splitted = explode(',', $votes_str);
+                return intval($votes_splitted[0]);
+            } else {
+                return 0;
+            }
+        }
+
+        $votes_option_yes = extract_votes($vote['Option 1']);
+        $votes_option_no = extract_votes($vote['Option 0']);
+        $votes_option_abstain = extract_votes($vote['Abstain']);
+
+        return new VotingState(
+            $vote['proposal'], /* current proposal id */
+            $block_start,
+            $block_end,
+            $vote['blocks_counted'],
+            $votes_option_yes,
+            $votes_option_no,
+            $votes_option_abstain
+        );
+
+    }
+
     public function blockHeight() : int
     {
         return $this->rpc->request('getblockcount');
