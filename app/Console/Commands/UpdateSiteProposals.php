@@ -142,7 +142,7 @@ class UpdateSiteProposals extends Command
 
             // Format the vote db object
             $vote_results = new stdClass();
-            $vote_results->vote_id;
+            $vote_results->vote_id = $votes->id;
             $vote_results->block_height_start = $votes->block_height_start;
             $vote_results->block_height_end = $votes->block_height_end;
             $vote_results->finished =  $votes->finished;
