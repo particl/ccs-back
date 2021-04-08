@@ -18,9 +18,9 @@ class CreateVotesTable extends Migration
             $table->unsignedInteger('block_height_start')->unique();
             $table->unsignedInteger('block_height_end')->unique();
             $table->unsignedInteger('finished')->default(0);
-            $table->unsignedInteger('blocks_yes');
-            $table->unsignedInteger('blocks_no');
-            $table->unsignedInteger('blocks_abstain');
+            $table->unsignedInteger('blocks_yes')->default(0);
+            $table->unsignedInteger('blocks_no')->default(0);
+            $table->unsignedInteger('blocks_abstain')->default(0);
             $table->timestamps();
         });
     }

@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Project;
+use App\Vote;
 use App\Repository\State;
 use App\Repository\Connection;
 use GuzzleHttp\Client;
@@ -126,6 +127,9 @@ class ProcessProposals extends Command
                     $project->gitlab_url = $gitlab_url;
                     $project->created_at = $date;
                     $project->filename = $filename;
+
+                    $project->$vote_id = $this->createVote();
+
                 } else {
                     $this->info("Updating project $filename");
                 }
@@ -149,6 +153,16 @@ class ProcessProposals extends Command
                 $this->error("Error processing project $filename: {$e->getMessage()}");
             }
         }
+    }
+
+    public function createVote() {
+        $this->info("Create a new vote!");
+        $vote = new Vote;
+        // TODO: calculate the starting block and the end - make sure they don't overlap
+        $vote->block_height_start = 2000;
+        $vote->block_height_end = 5000;
+        $vote->save();
+        return $vote->id;
     }
 
     /**
