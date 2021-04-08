@@ -137,7 +137,7 @@ class UpdateSiteProposals extends Command
         $prop->date = $proposal->created_at->format('F j, Y');
         if(isset($proposal->vote_id)) {
             // Retrieve the vote state from the database
-            $votes = Votes::where('id', $proposal->vote_id)->first();
+            $votes = Vote::where('id', $proposal->vote_id)->first();
 
             // Format the vote db object
             $vote_results = new stdClass();
