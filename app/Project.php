@@ -48,7 +48,11 @@ class Project extends Model
     }
 
     public function getPercentageFundedAttribute() {
-        return min(100, round($this->raised_amount / $this->target_amount * 100));
+        if(round($this->target_amount) == 0) {
+            return 100;
+        } else {
+            return min(100, round($this->raised_amount / $this->target_amount * 100));
+        }
     }
 
     public function getContributionsAttribute() {
