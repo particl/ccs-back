@@ -134,8 +134,6 @@ class ProcessProposals extends Command
                     $project->created_at = $date;
                     $project->filename = $filename;
 
-                    $project->vote_id = $this->createVote();
-
                 } else {
                     $this->info("Updating project $filename");
                 }
@@ -146,6 +144,7 @@ class ProcessProposals extends Command
 
                 if (isset($detail['values']['network_vote'])) {
                     $project->vote = $this::networkVoteToState[$detail['values']['network_vote']];
+                    $project->vote_id = $this->createVote();
                 }
 
                 $project->author = $author;
