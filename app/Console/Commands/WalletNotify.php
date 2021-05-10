@@ -8,7 +8,7 @@ use App\Project;
 use Illuminate\Console\Command;
 use Monero\Transaction;
 
-class walletNotify extends Command
+class WalletNotify extends Command
 {
     private $coin;
     private $wallet;
