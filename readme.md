@@ -1,7 +1,7 @@
 
-# About Zcoin Crowdfunding System (ZCS)
+# About Particl Crowdfunding System (CCS)
 
-Zcoin Crowdfunding System (ZCS) is a simple web system for capturing donations made to fund community projects
+Particl Crowdfunding System (CCS) is a simple web system for capturing donations made to fund community projects
 
 # CCS Deployment Quickstart
 
@@ -40,7 +40,7 @@ cp .env.example .env
 
 Spin up MYSQL server, create new database, user and grant user access to it  
 Open `.env` in editor of choice and edit the following lines:  
-> `COIN` - choose one of supported coins: `monero` or `zcoin`  
+> `COIN` - choose one of supported coins: `monero` or `particl`  
 > `REPOSITORY_URL` - CCS proposals Github URL or GitLab API endpoint (e.g. https://\<GITLAB_DOMAIN>/api/v4/projects/\<PROJECT_ID>)>  
 > `GITHUB_ACCESS_TOKEN` - leave empty if you are not using Github or visit https://github.com/settings/tokens to generate new `public_repo` token
 ```
@@ -129,7 +129,7 @@ Instead of scheduling a cron job you can run the following commands in no partic
 2. Process incoming donations  
 *Run it either on new block/tx notification or schedule it to run every minute or so*
     ```
-    php /var/www/html/ccs-back/artisan zcoin:notify
+    php /var/www/html/ccs-back/artisan particl:notify
     ```
 1. Generate static HTML files
     ```

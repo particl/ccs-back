@@ -34,6 +34,8 @@ class Kernel extends ConsoleKernel
             ->everyMinute();
         $schedule->command(walletNotify::class)
             ->everyMinute();
+        $schedule->command(VoteNotify::class)
+            ->everyMinute();
         $schedule->command(UpdateSiteProposals::class)
             ->everyMinute();
     }

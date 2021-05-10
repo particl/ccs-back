@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Project;
+use App\Vote;
 use App\Repository\State;
 use App\Repository\Connection;
 use Illuminate\Console\Command;
@@ -135,6 +136,23 @@ class UpdateSiteProposals extends Command
         $prop->{'amount-funded'} = $proposal->raised_amount;
         $prop->author = $proposal->author;
         $prop->date = $proposal->created_at->format('F j, Y');
+        if(isset($proposal->vote_id)) {
+            // Retrieve the vote state from the database
+            $votes = Vote::where('id', $proposal->vote_id)->first();
+
+            // Format the vote db object
+            $vote_results = new stdClass();
+            $vote_results->vote_id = $votes->id;
+            $vote_results->block_height_start = $votes->block_height_start;
+            $vote_results->block_height_end = $votes->block_height_end;
+            $vote_results->finished =  $votes->finished;
+            $vote_results->blocks_yes = $votes->blocks_yes;
+            $vote_results->blocks_no = $votes->blocks_no;
+            $vote_results->blocks_abstain = $votes->blocks_abstain;
+
+            // Set the results to the project property.
+            $prop->vote_results = $vote_results;
+        }
         return $prop;
     }
 

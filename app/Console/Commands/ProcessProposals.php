@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Project;
+use App\Vote;
 use App\Repository\State;
 use App\Repository\Connection;
 use GuzzleHttp\Client;
@@ -26,6 +27,9 @@ class ProcessProposals extends Command
      */
     protected $description = 'Check for changes to proposals';
 
+    private $coin;
+    private $wallet;
+
     /**
      * Create a new command instance.
      *
@@ -34,6 +38,9 @@ class ProcessProposals extends Command
     public function __construct()
     {
         parent::__construct();
+
+        $this->coin = CoinAuto::newCoin();
+        $this->wallet = $this->coin->newWallet();
     }
 
     private function getMergedMrFilenameToUrlMap()
@@ -126,6 +133,7 @@ class ProcessProposals extends Command
                     $project->gitlab_url = $gitlab_url;
                     $project->created_at = $date;
                     $project->filename = $filename;
+
                 } else {
                     $this->info("Updating project $filename");
                 }
@@ -136,6 +144,7 @@ class ProcessProposals extends Command
 
                 if (isset($detail['values']['network_vote'])) {
                     $project->vote = $this::networkVoteToState[$detail['values']['network_vote']];
+                    $project->vote_id = $this->createVote();
                 }
 
                 $project->author = $author;
@@ -149,6 +158,41 @@ class ProcessProposals extends Command
                 $this->error("Error processing project $filename: {$e->getMessage()}");
             }
         }
+    }
+
+    public function createVote() {
+        $this->info("Create a new vote!");
+        $vote = new Vote;
+
+        // Retrieve the current block height
+        $blockheight = $this->wallet->blockHeight();
+        if ($blockheight < 1) {
+            $this->error('failed to fetch blockchain height');
+
+            return;
+        }
+
+        // Retrieve the last vote we scheduled.
+        $block_height_last_vote = 0;
+        $last_vote = Vote::latest()->first();
+        if($last_vote) {
+            $block_height_last_vote = $last_vote->block_height_end;
+        }
+
+        // If no votes are active, set the current height + 500 as the starting block.
+        $block_height_start = $blockheight + 500;
+        // If a vote is active, then we'll shedule the vote right after it.
+        if($block_height_last_vote > $blockheight) {
+            $block_height_start = $block_height_last_vote + 1;
+        }
+
+        // The voting length is 10,080 blocks, the equivalent of 2 weeks.
+        $voting_length_in_blocks = 10080;
+
+        $vote->block_height_start = $block_height_start;
+        $vote->block_height_end = $block_height_start + $voting_length_in_blocks;
+        $vote->save();
+        return $vote->id;
     }
 
     /**
