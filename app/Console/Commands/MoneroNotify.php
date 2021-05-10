@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-class moneroNotify extends walletNotify
+class MoneroNotify extends WalletNotify
 {
     private $coin;
     private $wallet;

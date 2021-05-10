@@ -5,7 +5,7 @@ namespace App\Console;
 use App\Console\Commands\GenerateAddresses;
 use App\Console\Commands\ProcessProposals;
 use App\Console\Commands\UpdateSiteProposals;
-use App\Console\Commands\walletNotify;
+use App\Console\Commands\WalletNotify;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -32,7 +32,7 @@ class Kernel extends ConsoleKernel
             ->everyMinute();
         $schedule->command(GenerateAddresses::class)
             ->everyMinute();
-        $schedule->command(walletNotify::class)
+        $schedule->command(WalletNotify::class)
             ->everyMinute();
         $schedule->command(VoteNotify::class)
             ->everyMinute();
