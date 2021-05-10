@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Project;
 use App\Vote;
+use App\Coin\CoinAuto;
 use App\Repository\State;
 use App\Repository\Connection;
 use GuzzleHttp\Client;
