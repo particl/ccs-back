@@ -60,7 +60,7 @@ class VoteNotify extends Command
         $this->current_height_definite = $blockheight - 1000;
       
         // Retrieve the state for all active votes 
-        $active_votes = Vote::where('finished', '==', 0)->each(function ($vote_row) {
+        $active_votes = Vote::where('finished', '==', 1)->each(function ($vote_row) {
             // Get the vote from particld
             $vote_id = $vote_row->id;
             $block_start = $vote_row->block_height_start;
@@ -87,7 +87,7 @@ class VoteNotify extends Command
         $vote_db->blocks_abstain = $vote->votes_abstain;
 
         // If we passed the point of the definite unreorganizable height, then we consider the vote finished.
-        if($vote_db->block_height_end >= $current_height_definite) {
+        if($vote_db->block_height_end <= $current_height_definite) {
             $vote_db->finished = 1;
         }
         // TODO: update the project network vote state as well?
