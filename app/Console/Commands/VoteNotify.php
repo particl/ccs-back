@@ -62,8 +62,8 @@ class VoteNotify extends Command
         $active_votes = Vote::where('finished', '==', 0)->each(function ($vote_row) {
             // Get the vote from particld
             $vote_id = $vote_row->id;
-            $block_start = $vote_row->block_start;
-            $block_end = $vote_row->block_end;
+            $block_start = $vote_row->block_height_start;
+            $block_end = $vote_row->block_height_end;
             $vote = $this->wallet->checkIncomingVotes($vote_id, $block_start, $block_end);
 
             // Process the voting results in the database
