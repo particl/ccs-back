@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Coin\CoinAuto;
 use App\Project;
+use App\Vote;
 use Illuminate\Console\Command;
 use Monero\VotingState;
 
