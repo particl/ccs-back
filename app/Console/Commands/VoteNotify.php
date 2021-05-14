@@ -60,7 +60,7 @@ class VoteNotify extends Command
         $this->current_height_definite = $blockheight - 1000;
       
         // Retrieve the state for all active votes 
-        $active_votes = Vote::where('finished', '==', 1)->each(function ($vote_row) {
+        $active_votes = Vote::where('finished', '==', 0)->each(function ($vote_row) {
             // Get the vote from particld
             $vote_id = $vote_row->id;
             $block_start = $vote_row->block_height_start;
