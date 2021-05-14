@@ -69,8 +69,6 @@ class WalletParticl implements WalletCommon
 
     public function checkIncomingVotes($vote_id, $block_start, $block_end)
     {
-        $msg = gettype($vote_id) . " " . gettype($block_start) . " " . gettype($block_end);
-        error_log($msg, 0);
         $vote = $this->rpc->request('tallyvotes', [(int) $vote_id, (int) $block_start, (int) $block_end]);
 
         // Split string "y, x%" and return y
