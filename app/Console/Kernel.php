@@ -5,6 +5,7 @@ namespace App\Console;
 use App\Console\Commands\GenerateAddresses;
 use App\Console\Commands\ProcessProposals;
 use App\Console\Commands\UpdateSiteProposals;
+use App\Console\Commands\VoteNotify;
 use App\Console\Commands\WalletNotify;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
