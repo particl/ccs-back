@@ -67,7 +67,7 @@ class VoteNotify extends Command
             $vote = $this->wallet->checkIncomingVotes($vote_id, $block_start, $block_end);
 
             // Process the voting results in the database
-            processVote($vote, $current_height_definite);
+            $this->processVote($vote, $current_height_definite);
         });
 
     }
