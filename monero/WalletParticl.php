@@ -84,8 +84,8 @@ class WalletParticl implements WalletCommon
             }
         }
 
-        $votes_option_yes = extract_votes($vote['Option 1']);
-        $votes_option_no = extract_votes($vote['Option 2']);
+        $votes_option_yes = isset($vote['Option 1']) ? extract_votes($vote['Option 1']) : 0;
+        $votes_option_no = isset($vote['Option 2']) ? extract_votes($vote['Option 2']) : 0;
         $votes_option_abstain = extract_votes($vote['Abstain']);
 
         return new VotingState(
