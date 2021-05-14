@@ -12,6 +12,7 @@ class VoteNotify extends Command
 {
     private $coin;
     private $wallet;
+    private $current_height_definite;
 
     /**
      * The name and signature of the console command.
@@ -56,7 +57,7 @@ class VoteNotify extends Command
     
         // The blockchain may re-org to a depth of 1000 blocks
         // Which means the only block that we're definete of is 1000 blocks ago.
-        $current_height_definite = $blockheight - 1000;
+        $this->current_height_definite = $blockheight - 1000;
       
         // Retrieve the state for all active votes 
         $active_votes = Vote::where('finished', '==', 0)->each(function ($vote_row) {
@@ -67,7 +68,7 @@ class VoteNotify extends Command
             $vote = $this->wallet->checkIncomingVotes($vote_id, $block_start, $block_end);
 
             // Process the voting results in the database
-            $this->processVote($vote, $current_height_definite);
+            $this->processVote($vote, $this->current_height_definite);
         });
 
     }
