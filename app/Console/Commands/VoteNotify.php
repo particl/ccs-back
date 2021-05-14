@@ -55,7 +55,7 @@ class VoteNotify extends Command
     
         // The blockchain may re-org to a depth of 1000 blocks
         // Which means the only block that we're definete of is 1000 blocks ago.
-        $current_height_definite = blockheight - 1000;
+        $current_height_definite = $blockheight - 1000;
       
         // Retrieve the state for all active votes 
         $active_votes = Vote::where('finished', '==', 0)->each(function ($vote_row) {
