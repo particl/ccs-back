@@ -149,6 +149,7 @@ class UpdateSiteProposals extends Command
             $vote_results->blocks_yes = $votes->blocks_yes;
             $vote_results->blocks_no = $votes->blocks_no;
             $vote_results->blocks_abstain = $votes->blocks_abstain;
+            $prop->consensus_vote = (($votes->block_height_end - $votes->block_height_start) == 10079);
 
             // Set the results to the project property.
             $prop->vote_results = $vote_results;

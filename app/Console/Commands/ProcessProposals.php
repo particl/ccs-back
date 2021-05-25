@@ -136,7 +136,8 @@ class ProcessProposals extends Command
                     $project->filename = $filename;
 
                     if (isset($detail['values']['network_vote'])) {
-                        $project->vote_id = $this->createVote();
+                        $consensus_vote = isset($detail['values']['consensus_vote'])
+                        $project->vote_id = $this->createVote($consensus_vote);
                     }
 
                 } else {
@@ -165,7 +166,7 @@ class ProcessProposals extends Command
         }
     }
 
-    public function createVote() {
+    public function createVote($consensus_vote) {
         $this->info("Create a new vote!");
         $vote = new Vote;
 
@@ -193,6 +194,9 @@ class ProcessProposals extends Command
 
         // The voting length is 10,080 blocks, the equivalent of 2 weeks.
         $voting_length_in_blocks = 10080;
+        if(!$consensus_vote) {
+            $voting_length_in_blocks = 5040;
+        }
 
         $vote->block_height_start = $block_height_start;
         $vote->block_height_end = $block_height_start + $voting_length_in_blocks;
