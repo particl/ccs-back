@@ -136,7 +136,7 @@ class ProcessProposals extends Command
                     $project->filename = $filename;
 
                     if (isset($detail['values']['network_vote'])) {
-                        $consensus_vote = isset($detail['values']['consensus_vote'])
+                        $consensus_vote = isset($detail['values']['consensus_vote']);
                         $project->vote_id = $this->createVote($consensus_vote);
                     }
 
