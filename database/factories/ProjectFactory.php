@@ -15,6 +15,7 @@ $factory->define(\App\Project::class, function (Faker $faker) {
         'raised_amount' => $faker->randomFloat(2, 0, 2000),
         'state' => $state,
         'vote' => $vote,
+        'treasuryclaim' => $faker->boolean(),
         'author' => $faker->userName,
         'gitlab_url' => $faker->url,
         'created_at' => $faker->dateTimeThisYear,
