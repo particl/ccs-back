@@ -140,6 +140,11 @@ class ProcessProposals extends Command
                         $project->vote_id = $this->createVote($consensus_vote);
                     }
 
+                    if (isset($detail['values']['treasuryclaim'])) {
+                        $project->treasuryclaim = true;
+                    }
+    
+
                 } else {
                     $this->info("Updating project $filename");
                 }
@@ -152,6 +157,9 @@ class ProcessProposals extends Command
                     $project->vote = $this::networkVoteToState[$detail['values']['network_vote']];
                 }
 
+                if (isset($detail['values']['treasuryclaim'])) {
+                    $project->treasuryclaim = true;
+                }
 
                 $project->author = $author;
                 $project->state = $state;

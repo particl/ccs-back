@@ -136,6 +136,11 @@ class UpdateSiteProposals extends Command
         $prop->{'amount-funded'} = $proposal->raised_amount;
         $prop->author = $proposal->author;
         $prop->date = $proposal->created_at->format('F j, Y');
+
+        if (isset($proposal['treasuryclaim'])) {
+            $prop->treasuryclaim = true;
+        }
+
         if(isset($proposal->vote_id)) {
             // Retrieve the vote state from the database
             $votes = Vote::where('id', $proposal->vote_id)->first();

@@ -27,6 +27,7 @@ class CreateProjectsTable extends Migration
             $table->float('raised_amount')->default(0);
             $table->string('state');
             $table->string('vote')->nullable();
+            $table->boolean('treasuryclaim')->nullable();
             $table->string('filename')->unique();
             $table->unsignedInteger('milestones');
             $table->unsignedInteger('milestones_completed')->default(0);
