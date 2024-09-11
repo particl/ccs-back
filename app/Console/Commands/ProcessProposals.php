@@ -137,7 +137,10 @@ class ProcessProposals extends Command
 
                     if (isset($detail['values']['network_vote'])) {
                         $consensus_vote = isset($detail['values']['consensus_vote']);
-                        $project->vote_id = $this->createVote($consensus_vote);
+                        $network_vote_id = htmlspecialchars($detail['values']['network_vote_id'], ENT_QUOTES);
+                        $network_vote_block_height_start = htmlspecialchars($detail['values']['network_vote_block_height_start'], ENT_QUOTES);
+                        $network_vote_block_height_end = htmlspecialchars($detail['values']['network_vote_block_height_end'], ENT_QUOTES);
+                        $project->vote_id = $this->createVote($network_vote_id, $network_vote_block_height_start, $network_vote_block_height_end);
                     }
 
                     if (isset($detail['values']['treasuryclaim'])) {
@@ -174,40 +177,12 @@ class ProcessProposals extends Command
         }
     }
 
-    public function createVote($consensus_vote) {
+    public function createVote($network_vote_id, $network_vote_block_height_start, $network_vote_block_height_end) {
         $this->info("Create a new vote!");
         $vote = new Vote;
-
-        // Retrieve the current block height
-        $blockheight = $this->wallet->blockHeight();
-        if ($blockheight < 1) {
-            $this->error('failed to fetch blockchain height');
-
-            return;
-        }
-
-        // Retrieve the last vote we scheduled.
-        $block_height_last_vote = 0;
-        $last_vote = Vote::latest()->first();
-        if($last_vote) {
-            $block_height_last_vote = $last_vote->block_height_end;
-        }
-
-        // If no votes are active, set the current height + 500 as the starting block.
-        $block_height_start = $blockheight + 500;
-        // If a vote is active, then we'll shedule the vote right after it.
-        if($block_height_last_vote > $blockheight) {
-            $block_height_start = $block_height_last_vote + 1;
-        }
-
-        // The voting length is 10,080 blocks, the equivalent of 2 weeks.
-        $voting_length_in_blocks = 10080;
-        if(!$consensus_vote) {
-            $voting_length_in_blocks = 5040;
-        }
-
-        $vote->block_height_start = $block_height_start;
-        $vote->block_height_end = $block_height_start + $voting_length_in_blocks;
+        $vote->id = $network_vote_id;
+        $vote->block_height_start = $network_vote_block_height_start;
+        $vote->block_height_end = $network_vote_block_height_end;
         $vote->save();
         return $vote->id;
     }
