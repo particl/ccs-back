@@ -14,7 +14,7 @@ class CreateVotesTable extends Migration
     public function up()
     {
         Schema::create('votes', function (Blueprint $table) {
-            $table->increments('id');
+            $table->unsignedInteger('id')->unique();
             $table->unsignedInteger('block_height_start')->unique();
             $table->unsignedInteger('block_height_end')->unique();
             $table->unsignedInteger('finished')->default(0);
